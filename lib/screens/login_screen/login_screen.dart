@@ -143,5 +143,23 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+ void signInWithEmailAndPassword({ required String email, required String password}) async{
+   try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+         email: email,
+         password: password
+     );
+   } on FirebaseAuthException catch (e) {
+     if (e.code == 'user-not-found') {
+       print('No user found for that email.');
+       showSnackBar(context, message: 'No user found for that email.');
+     } else if (e.code == 'wrong-password') {
+       print('Wrong password provided for that user.');
+       showSnackBar(context, message:' Wrong password provided for that user.');
 
+     }else if(e.code =='INVALID_LOGIN_CREDENTIALS'){
+       showSnackBar(context, message: 'Wrong password provided for that user!');
+     }
+   }
+ }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:planet_disease_app/custom_widgets/custom_elevated_button.dart';
 import 'package:planet_disease_app/custom_widgets/custom_text_field.dart';
 import 'package:planet_disease_app/custom_widgets/custom_widgets.dart';
 import 'package:planet_disease_app/screens/home_screen/home_screen.dart';
@@ -107,62 +108,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           : const Icon(Icons.visibility),
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width*0.75,
-                    height: 57,
-
-                    child: ElevatedButton(
-
-                      onPressed:(){
+                  // register button
+                  CustomElevatedButton(
+                      text: 'Sign up',
+                      onPressed: (){
                         bool isFormValid = formKey.currentState!.validate();
-
                         if(isFormValid){
-
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) => HomeScreen()),
-                                  (route) => false);
-                        }
-
-                      },
-                      child: const Text("sign up"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff40BFFF),
-                        shadowColor: const Color(0xff40BFFF).withOpacity(0.24),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20,),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(" have a accound?"),
-                      const SizedBox(width: 8,),
-
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => LoginScreen(),
-
-                            ),
+                          createUserWithEmailAndPassword(
+                            email: emailController.text,
+                            password: passwordController.text,
                           );
-                        },
-
-
-                        child:const Text("Sign in",
-                          style:TextStyle(color:Colors.blue,fontWeight: FontWeight.bold),
-
-
-                        ) ,
-
-                      ),
-
-                    ],
-
-                  )
-
-
+                          navToScreen(context, navToScreen:const  HomeScreen()); 
+                        }
+                      },
+                  ),
+                  accountOption(
+                      navToScreen: const LoginScreen(),
+                      context: context,
+                      question: 'Already have an account ? ',
+                      option: 'Login'
+                  ),
                 ],
               ),
             ),
@@ -182,10 +147,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
+        showSnackBar(context, message: 'The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
-      }else if(e.code =='INVALID_LOGIN_CREDENTIALS'){
-        print('Wrong password provided for that user!');
+        showSnackBar(context, message: 'The account already exists for that email.');
       }
     } catch (e) {
       print(e);
