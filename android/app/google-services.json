@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1086294213819",
+    "project_id": "planet-disease",
+    "storage_bucket": "planet-disease.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086294213819:android:f85ae447c6d2f8c78e959e",
+        "android_client_info": {
+          "package_name": "com.example.planet_disease_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXlYhCcCMgpY8KN66HNr-c7gZhBny2aBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
