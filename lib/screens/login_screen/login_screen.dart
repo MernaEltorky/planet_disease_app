@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       bool isFormValid = formKey.currentState!.validate();
                       if (isFormValid) {
-                        signInWithEmailAndPassword(email: emailController.text, password: passwordController.text)
+                        signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
                         navToScreen(context, navToScreen: const HomeScreen());
                       }
                     },
